@@ -22,6 +22,13 @@ lineReader.on('line', function(line) {
     jsonResult = result.filter(ele => ele['Total_Urban_Rural'] === "Total");
     jsonResult1 = jsonResult.filter(ele => ele['AgeGroup'] === "7");
 
+    totalliterate = jsonResult1.reduce(function(sum, order) {
+      var aa = +order.literate
+     
+        return sum + aa
+    },0)
+//console.log(totalliterate)
+
 });
 
 lineReader.on('close', function(line) {
