@@ -1,4 +1,5 @@
 var result = [];
+var final = [];
 var fs = require("fs");
 var sum
 var lineReader = require('readline').createInterface({
@@ -20,26 +21,32 @@ lineReader.on('line', function(line) {
     result.push(jsonFromLine);
 });
 
-lineReader.on('close', function(line) {
+lineReader.on('close', function() {
     var i = 7;
     while (i != 20) {
-        var j = i.toString();
-        jsonResult = result.filter(ele => ele['Total_Urban_Rural'] === "Total" && ele['AgeGroup'] === j);
+        var loop = i.toString();
+        jsonResult = result.filter(ele => ele['Total_Urban_Rural'] === "Total" && ele['AgeGroup'] === loop);
 
-        sum = jsonResult.reduce((c, ele) => {
-            c = c + parseInt(ele.literate);
-            return c;
+        sum = jsonResult.reduce((s, ele) => {
+            s = s + parseInt(ele.literate);
+            return s;
         }, 0);
 
-        i++;
 
-        console.log(sum);
+
+        var array = {};
+        array.AgeGroup = i;
+        array.totalLiterate = sum;
+        final.push(array);
+        i++;
+        console.log(array);
     }
+
 });
 
-/*lineReader.on('close', function(line) {
-    myWriteStream.write(JSON.stringify(jsonResult, null, 2))
-});*/
+lineReader.on('close', function(line) {
+    myWriteStream.write(JSON.stringify(final, null, 2))
+});
 
 /*
 ----------2nd file------------------------------------------------------------------------------*/
