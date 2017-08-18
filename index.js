@@ -1,6 +1,6 @@
 var result = [];
 var fs = require("fs");
-
+var sum
 var lineReader = require('readline').createInterface({
     input: require('fs').createReadStream('India2011.csv')
 });
@@ -18,22 +18,28 @@ lineReader.on('line', function(line) {
 
 
     result.push(jsonFromLine);
-
-    jsonResult = result.filter(ele => ele['Total_Urban_Rural'] === "Total");
-    jsonResult1 = jsonResult.filter(ele => ele['AgeGroup'] === "7");
-
-    totalliterate = jsonResult1.reduce(function(sum, order) {
-      var aa = +order.literate
-     
-        return sum + aa
-    },0)
-//console.log(totalliterate)
-
 });
 
 lineReader.on('close', function(line) {
-    myWriteStream.write(JSON.stringify(jsonResult1, null, 2))
+    var i = 7;
+    while (i != 20) {
+        var j = i.toString();
+        jsonResult = result.filter(ele => ele['Total_Urban_Rural'] === "Total" && ele['AgeGroup'] === j);
+
+        sum = jsonResult.reduce((c, ele) => {
+            c = c + parseInt(ele.literate);
+            return c;
+        }, 0);
+
+        i++;
+
+        console.log(sum);
+    }
 });
+
+/*lineReader.on('close', function(line) {
+    myWriteStream.write(JSON.stringify(jsonResult, null, 2))
+});*/
 
 /*
 ----------2nd file------------------------------------------------------------------------------*/
