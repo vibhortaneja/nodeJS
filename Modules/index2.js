@@ -27,7 +27,7 @@ lineReader_two.on('line', function(line) {
 
 var jsonResult_two = [];
 lineReader_two.on('close', function() {
-    var j = 01;
+    var j = 10;
     while (j != 36) {
         var loop = j.toString();
         jsonResult_two = result_two.filter(ele => ele['Total_Urban_Rural'] === "Total" && ele['AgeGroup'] === "All ages" && ele['StateCode'] === loop)

@@ -64,8 +64,11 @@ lineReader_two.on('line', function(line) {
     var jsonFromLine_two = {};
 
     var lineSplit_two = line.split(',')
+    var x = lineSplit_two[1]
+    if (x == '01' || x == '02' || x == '03' || x == '04' || x == '05' || x == '06' || x == '07' || x == '08' || x == '09')
+        x = x.charAt(1)
 
-    jsonFromLine_two.StateCode = lineSplit_two[1]
+    jsonFromLine_two.StateCode = x
     jsonFromLine_two.StateName = lineSplit_two[3]
     jsonFromLine_two.Total_Urban_Rural = lineSplit_two[4]
     jsonFromLine_two.AgeGroup = lineSplit_two[5]
@@ -79,7 +82,7 @@ lineReader_two.on('line', function(line) {
 
 var jsonResult_two = [];
 lineReader_two.on('close', function() {
-    var j = 01;
+    var j = 1;
     while (j != 36) {
         var loop = j.toString();
         jsonResult_two = result_two.filter(ele => ele['Total_Urban_Rural'] === "Total" && ele['AgeGroup'] === "All ages" && ele['StateCode'] === loop)
@@ -144,75 +147,75 @@ lineReader_three.on('line', function(line) {
 
 var jsonResult_three = [];
 lineReader_three.on('close', function() {
-    
-        jsonResult_three = result_three.filter(ele => ele['Total_Urban_Rural'] === "Total" && ele['AgeGroup'] === "All ages" )
 
-        sumLiterate = jsonResult_three.reduce((s, ele) => {
-            s = s + parseInt(ele.literate);
-            return s;
-        }, 0);
+    jsonResult_three = result_three.filter(ele => ele['Total_Urban_Rural'] === "Total" && ele['AgeGroup'] === "All ages")
 
-        sumBelowprimary = jsonResult_three.reduce((s, ele) => {
-            s = s + parseInt(ele.belowprimary);
-            return s;
-        }, 0);
+    sumLiterate = jsonResult_three.reduce((s, ele) => {
+        s = s + parseInt(ele.literate);
+        return s;
+    }, 0);
 
-        sumPrimary = jsonResult_three.reduce((s, ele) => {
-            s = s + parseInt(ele.primary);
-            return s;
-        }, 0);
+    sumBelowprimary = jsonResult_three.reduce((s, ele) => {
+        s = s + parseInt(ele.belowprimary);
+        return s;
+    }, 0);
 
-        sumMiddle = jsonResult_three.reduce((s, ele) => {
-            s = s + parseInt(ele.middle);
-            return s;
-        }, 0);
+    sumPrimary = jsonResult_three.reduce((s, ele) => {
+        s = s + parseInt(ele.primary);
+        return s;
+    }, 0);
 
-        sumSecondary = jsonResult_three.reduce((s, ele) => {
-            s = s + parseInt(ele.secondary);
-            return s;
-        }, 0);
+    sumMiddle = jsonResult_three.reduce((s, ele) => {
+        s = s + parseInt(ele.middle);
+        return s;
+    }, 0);
 
-        sumHighersecondary = jsonResult_three.reduce((s, ele) => {
-            s = s + parseInt(ele.higher_secondary);
-            return s;
-        }, 0);
+    sumSecondary = jsonResult_three.reduce((s, ele) => {
+        s = s + parseInt(ele.secondary);
+        return s;
+    }, 0);
 
-        sumNondiploma = jsonResult_three.reduce((s, ele) => {
-            s = s + parseInt(ele.non_diploma);
-            return s;
-        }, 0);
+    sumHighersecondary = jsonResult_three.reduce((s, ele) => {
+        s = s + parseInt(ele.higher_secondary);
+        return s;
+    }, 0);
 
-        sumTechdiploma = jsonResult_three.reduce((s, ele) => {
-            s = s + parseInt(ele.tech_diploma);
-            return s;
-        }, 0);
+    sumNondiploma = jsonResult_three.reduce((s, ele) => {
+        s = s + parseInt(ele.non_diploma);
+        return s;
+    }, 0);
 
-        sumGraduate = jsonResult_three.reduce((s, ele) => {
-            s = s + parseInt(ele.graduate);
-            return s;
-        }, 0);
+    sumTechdiploma = jsonResult_three.reduce((s, ele) => {
+        s = s + parseInt(ele.tech_diploma);
+        return s;
+    }, 0);
 
-        sumUnclassified = jsonResult_three.reduce((s, ele) => {
-            s = s + parseInt(ele.unclassified);
-            return s;
-        }, 0);
+    sumGraduate = jsonResult_three.reduce((s, ele) => {
+        s = s + parseInt(ele.graduate);
+        return s;
+    }, 0);
+
+    sumUnclassified = jsonResult_three.reduce((s, ele) => {
+        s = s + parseInt(ele.unclassified);
+        return s;
+    }, 0);
 
 
-        var array_three = {};
-        array_three.Literate_without_education = sumLiterate
-        array_three.Below_primary = sumBelowprimary
-        array_three.primary = sumPrimary
-        array_three.Middle = sumMiddle
-        array_three.Secondary = sumSecondary
-        array_three.Higher_secondary = sumHighersecondary
-        array_three.Non_diploma = sumNondiploma
-        array_three.Tech_diploma = sumTechdiploma
-        array_three.Graduate = sumGraduate
-        array_three.Unclassified = sumUnclassified
-        
+    var array_three = {};
+    array_three.Literate_without_education = sumLiterate
+    array_three.Below_primary = sumBelowprimary
+    array_three.Primary = sumPrimary
+    array_three.Middle = sumMiddle
+    array_three.Secondary = sumSecondary
+    array_three.Higher_secondary = sumHighersecondary
+    array_three.Non_diploma = sumNondiploma
+    array_three.Tech_diploma = sumTechdiploma
+    array_three.Graduate = sumGraduate
+    array_three.Unclassified = sumUnclassified
 
-        final_three.push(array_three)
-        
+
+    final_three.push(array_three)
+
 
 });
 

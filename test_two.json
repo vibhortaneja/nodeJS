@@ -1,13 +1,58 @@
 [
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
-  {},
+  {
+    "StateName": "State - JAMMU & KASHMIR",
+    "GraduateT": "653764",
+    "GraduateM": "401279",
+    "GraduateF": "252485"
+  },
+  {
+    "StateName": "State - HIMACHAL PRADESH",
+    "GraduateT": "446609",
+    "GraduateM": "251164",
+    "GraduateF": "195445"
+  },
+  {
+    "StateName": "State - PUNJAB",
+    "GraduateT": "1760846",
+    "GraduateM": "873776",
+    "GraduateF": "887070"
+  },
+  {
+    "StateName": "State - CHANDIGARH",
+    "GraduateT": "194453",
+    "GraduateM": "104748",
+    "GraduateF": "89705"
+  },
+  {
+    "StateName": "State - UTTARAKHAND",
+    "GraduateT": "910288",
+    "GraduateM": "512068",
+    "GraduateF": "398220"
+  },
+  {
+    "StateName": "State - HARYANA",
+    "GraduateT": "1877085",
+    "GraduateM": "1102809",
+    "GraduateF": "774276"
+  },
+  {
+    "StateName": "State - NCT OF DELHI",
+    "GraduateT": "2757844",
+    "GraduateM": "1535972",
+    "GraduateF": "1221872"
+  },
+  {
+    "StateName": "State - RAJASTHAN",
+    "GraduateT": "3063282",
+    "GraduateM": "2086247",
+    "GraduateF": "977035"
+  },
+  {
+    "StateName": "State - UTTAR PRADESH",
+    "GraduateT": "9919838",
+    "GraduateM": "6378138",
+    "GraduateF": "3541700"
+  },
   {
     "StateName": "State - BIHAR",
     "GraduateT": "3061676",
