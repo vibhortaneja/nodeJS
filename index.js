@@ -1,7 +1,6 @@
 var result = [];
 var final = [];
 var fs = require("fs");
-var sum
 var lineReader = require('readline').createInterface({
     input: require('fs').createReadStream('India2011.csv')
 });
@@ -22,10 +21,10 @@ lineReader.on('line', function(line) {
 });
 
 lineReader.on('close', function() {
-    var i = 7;
-    while (i != 20) {
+    var i = 2;
+    while (i != 30) {
         var loop = i.toString();
-        jsonResult = result.filter(ele => ele['Total_Urban_Rural'] === "Total" && ele['AgeGroup'] === loop);
+        jsonResult = result.filter(ele => ele['Total_Urban_Rural'] === "Total" && ele['AgeGroup'] === result[loop]['AgeGroup']);
 
         sum = jsonResult.reduce((s, ele) => {
             s = s + parseInt(ele.literate);
@@ -35,11 +34,11 @@ lineReader.on('close', function() {
 
 
         var array = {};
-        array.AgeGroup = i;
+        array.AgeGroup = result[loop]['AgeGroup'];
         array.totalLiterate = sum;
         final.push(array);
         i++;
-        console.log(array);
+
     }
 
 });
@@ -48,37 +47,3 @@ lineReader.on('close', function(line) {
     myWriteStream.write(JSON.stringify(final, null, 2))
 });
 
-/*
-----------2nd file------------------------------------------------------------------------------*/
-
-
-var result_two = [];
-var fs = require("fs");
-
-var lineReader_two = require('readline').createInterface({
-    input: require('fs').createReadStream('India2011.csv')
-});
-
-var myWriteStream_two = require("fs").createWriteStream("test_two.json")
-
-lineReader_two.on('line', function(line) {
-    var jsonFromLine_two = {};
-
-    var lineSplit_two = line.split(',');
-
-    jsonFromLine_two.StateCode = lineSplit_two[1];
-    jsonFromLine_two.Total_Urban_Rural = lineSplit_two[4];
-
-    jsonFromLine_two.Graduate = lineSplit_two[39];
-    jsonFromLine_two.Graduate_Male = lineSplit_two[40];
-    jsonFromLine_two.Graduate_Female = lineSplit_two[41];
-
-    result_two.push(jsonFromLine_two);
-
-
-
-});
-
-lineReader_two.on('close', function(line) {
-    myWriteStream_two.write(JSON.stringify(result_two, null, 2))
-});
