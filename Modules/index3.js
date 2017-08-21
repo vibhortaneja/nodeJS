@@ -1,7 +1,6 @@
-var result_three = [];
 var final_three = [];
 var fs = require("fs");
-
+  var s = [0,0,0,0,0,0,0,0,0,0]
 var lineReader_three = require('readline').createInterface({
     input: require('fs').createReadStream('India2011.csv')
 });
@@ -13,35 +12,32 @@ lineReader_three.on('line', function(line) {
 
     var lineSplit_three = line.split(',')
 
-    jsonFromLine_three.Total_Urban_Rural = lineSplit_three[4]
-    jsonFromLine_three.AgeGroup = lineSplit_three[5]
-    jsonFromLine_three.literate = lineSplit_three[15]
-    jsonFromLine_three.belowprimary = lineSplit_three[18]
-    jsonFromLine_three.primary = lineSplit_three[21]
-    jsonFromLine_three.middle = lineSplit_three[24]
-    jsonFromLine_three.secondary = lineSplit_three[27]
-    jsonFromLine_three.higher_secondary = lineSplit_three[30]
-    jsonFromLine_three.non_diploma = lineSplit_three[33]
-    jsonFromLine_three.tech_diploma = lineSplit_three[36]
-    jsonFromLine_three.graduate = lineSplit_three[40]
-    jsonFromLine_three.unclassified = lineSplit_three[43]
+if(lineSplit_three[4]=='Total' && lineSplit_three[5]=='All ages')
+{
+for(let i=0,j=15;i<10;i++,j+=3)
+{
+	s[i]=s[i]+parseInt(lineSplit_three[j])
+}    
+}}
+);
 
-
-    result_three.push(jsonFromLine_three)
-
-});
-
-var jsonResult_three = [];
 lineReader_three.on('close', function() {
-    
-        jsonResult_three = result_three.filter(ele => ele['Total_Urban_Rural'] === "Total" && ele['AgeGroup'] === "All ages" )
-
-        sumLiterate = jsonResult_three.reduce((s, ele) => {
-            s = s + parseInt(ele.literate);
-            return s;
-        }, 0);
-
-        sumBelowprimary = jsonResult_three.reduce((s, ele) => {
+     		obj = {
+    			literate: s[0],
+    			belowprimary: s[1],
+    			primary: s[2],
+    			middle: s[3],
+    			secondary: s[4],
+    			higher_secondary: s[5],
+    			non_diploma: s[6],
+    			tech_diploma: s[7],
+    			graduate: s[8],
+    			unclassified: s[9]
+    		}
+    		final_three.push(obj)
+       myWriteStream_three.write(JSON.stringify(final_three, null, 2)) 
+})
+      /*  sumBelowprimary = jsonResult_three.reduce((s, ele) => {
             s = s + parseInt(ele.belowprimary);
             return s;
         }, 0);
@@ -84,10 +80,10 @@ lineReader_three.on('close', function() {
         sumUnclassified = jsonResult_three.reduce((s, ele) => {
             s = s + parseInt(ele.unclassified);
             return s;
-        }, 0);
+        }, 0);*/
 
 
-        var array_three = {};
+    /*    var array_three = {};
         array_three.Literate_without_education = sumLiterate
         array_three.Below_primary = sumBelowprimary
         array_three.primary = sumPrimary
@@ -107,4 +103,4 @@ lineReader_three.on('close', function() {
 
 lineReader_three.on('close', function(line) {
     myWriteStream_three.write(JSON.stringify(final_three, null, 2))
-});
+});*/
