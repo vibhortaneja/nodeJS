@@ -1,5 +1,8 @@
-var result = [];
-var final = [];
+var result = [],
+    final = [],
+    result_two = [],
+    final_two = [],
+    final_three = [];
 var fs = require("fs");
 var lineReader = require('readline').createInterface({
     input: require('fs').createReadStream('India2011.csv')
@@ -32,9 +35,7 @@ lineReader.on('close', function() {
 lineReader.on('close', function(line) {
     myWriteStream.write(JSON.stringify(final, null, 2))
 });
-/*----------------------2nd File------------------------------------------------*/
-var result_two = [];
-var final_two = [];
+
 var fs = require("fs");
 var lineReader_two = require('readline').createInterface({
     input: require('fs').createReadStream('India2011.csv')
@@ -77,8 +78,7 @@ lineReader_two.on('close', function() {
 lineReader_two.on('close', function(line) {
     myWriteStream_two.write(JSON.stringify(final_two, null, 2))
 });
-/*-----------------3rd File--------------------------------------------------*/
-var final_three = [];
+
 var fs = require("fs");
 var s = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 var lineReader_three = require('readline').createInterface({
@@ -94,19 +94,17 @@ lineReader_three.on('line', function(line) {
         }
     }
 });
-lineReader_three.on('close', function() {
-    obj = {
-        literate: s[0],
-        belowprimary: s[1],
-        primary: s[2],
-        middle: s[3],
-        secondary: s[4],
-        higher_secondary: s[5],
-        non_diploma: s[6],
-        tech_diploma: s[7],
-        graduate: s[8],
-        unclassified: s[9]
-    }
-    final_three.push(obj)
-    myWriteStream_three.write(JSON.stringify(final_three, null, 2))
-})
+var edu = ['Literate_without_educational', 'Below_Primary', 'Primary', 'Middle', 'Matric_Secondary', 'Higher_secondary_Senior_secondary',
+    'Non_technical_diploma_degree', ' Technical_diploma', 'Graduate_above', 'Unclassified'
+]
+lineReader.on('close',
+    function() {
+        final_three = []
+        for (var i = 0; i < 10; i++) {
+            final_three[i] = {
+                EducationClass: edu[i],
+                Totalvalue: s[i]
+            }
+        }
+        myWriteStream_three.write(JSON.stringify(final_three, null, 2))
+    })
