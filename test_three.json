@@ -1,14 +1,14 @@
 [
   {
-    "Literate_without_education": 35153231,
-    "Below_primary": 146897597,
-    "Primary": 184170833,
-    "Middle": 133903266,
-    "Secondary": 105939743,
-    "Higher_secondary": 77942593,
-    "Non_diploma": 1072289,
-    "Tech_diploma": 7238719,
-    "Graduate": 42120460,
-    "Unclassified": 1647116
+    "literate": 35153231,
+    "belowprimary": 146897597,
+    "primary": 184170833,
+    "middle": 133903266,
+    "secondary": 105939743,
+    "higher_secondary": 77942593,
+    "non_diploma": 1072289,
+    "tech_diploma": 7238719,
+    "graduate": 68288971,
+    "unclassified": 3031570
   }
 ]
