@@ -61,7 +61,7 @@ svg {
             var layers = stack(data);
             /*data.sort(function(a, b) { return b.total - a.total; });*/
             xScale.domain(data.map(function(d) { return (d.StateName); }));
-            yScale.domain([0, d3.max(layers[layers.length - 1], function(d) { return d[0] + d[1]; })]).nice();
+            yScale.domain([0, 25000000]);
 
             var layer = svg.selectAll(".layer")
                 .data(layers)
