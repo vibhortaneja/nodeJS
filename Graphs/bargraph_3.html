@@ -60,12 +60,13 @@ body {
 </style>
 
 <body>
+<h2>Bar Graph Education-Category vs TotalValue</h2>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <script>
-    var margin = { top: 40, right: 0, bottom: 100, left: 65 },
+    var margin = { top: 40, right: 0, bottom: 250, left: 65 },
         width = 1300 - margin.left /*- margin.right*/ ,
-        height = 700 - margin.top - margin.bottom;
+        height = 500 - margin.top /*- margin.bottom*/;
 
     var formatPercent = d3.format("");
 
@@ -106,7 +107,12 @@ body {
         svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", "-.55em")
+            .attr("transform", "rotate(-90)");
 
         svg.append("g")
             .attr("class", "y axis")

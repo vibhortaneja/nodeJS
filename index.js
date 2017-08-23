@@ -62,11 +62,13 @@ lineReader_two.on('close', function() {
     while (j != 36) {
         var loop = j.toString();
         jsonResult_two = result_two.filter(ele => ele['Total_Urban_Rural'] === "Total" && ele['AgeGroup'] === "All ages" && ele['StateCode'] === loop)
+        /*var statecode = jsonResult_two.map((obj) => obj.StateCode)*/
         var statename = jsonResult_two.map((obj) => obj.StateName)
         var graduate = jsonResult_two.map((obj) => obj.Graduate)
         var male = jsonResult_two.map((obj) => obj.Graduate_Male)
         var female = jsonResult_two.map((obj) => obj.Graduate_Female)
         var array_two = {};
+        /*array_two.StateCode = statecode[0]*/
         array_two.StateName = statename[0]
         array_two.GraduateT = graduate[0]
         array_two.GraduateM = male[0]
@@ -95,7 +97,7 @@ lineReader_three.on('line', function(line) {
     }
 });
 var edu = ['Literate_without_educational', 'Below_Primary', 'Primary', 'Middle', 'Matric_Secondary', 'Higher_secondary_Senior_secondary',
-    'Non_technical_diploma_degree', ' Technical_diploma', 'Graduate_above', 'Unclassified'
+    'Nontechnical_diplomadegree', ' Technical_diploma', 'Graduate_above', 'Unclassified'
 ]
 lineReader.on('close',
     function() {
