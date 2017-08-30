@@ -35,7 +35,7 @@ lineReader.on('close', function() {
 lineReader.on('close', function(line) {
     myWriteStream.write(JSON.stringify(final, null, 2))
 });
-
+/*------------------------2nd Module---------------------------------*/
 var fs = require("fs");
 var lineReader_two = require('readline').createInterface({
     input: require('fs').createReadStream('India2011.csv')
@@ -80,7 +80,7 @@ lineReader_two.on('close', function() {
 lineReader_two.on('close', function(line) {
     myWriteStream_two.write(JSON.stringify(final_two, null, 2))
 });
-
+/*------------------3rd Module--------------------------------*/
 var fs = require("fs");
 var s = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 var lineReader_three = require('readline').createInterface({

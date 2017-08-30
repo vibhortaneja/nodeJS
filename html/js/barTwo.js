@@ -1,0 +1,303 @@
+var initStackedBarChart = {
+    draw: function(config) {
+        xData = ["GraduateF", "GraduateM", "GraduateT"];
+        me = this,
+            domEle = config.element,
+            stackKey = config.key,
+            data = config.data,
+            margin = { top: 50, right: 20, bottom: 160, left: 100 },
+            width = 1500 - margin.left - margin.right,
+            height = 550 - margin.top - margin.bottom,
+            xScale = d3.scaleBand().range([0, width]).padding(0.1),
+            yScale = d3.scaleLinear().range([height, 0]),
+            color = d3.scaleOrdinal(d3.schemeCategory20),
+            //xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat("%b")),
+            xAxis = d3.axisBottom(xScale),
+            yAxis = d3.axisLeft(yScale),
+            svg = d3.select("#" + domEle).append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var stack = d3.stack()
+            .keys(stackKey)
+            .order(d3.stackOrderNone)
+            .offset(d3.stackOffsetNone);
+
+        var layers = stack(data);
+        //data.sort(function(a, b) { return b.total - a.total; });
+        xScale.domain(data.map(function(d) { return d.StateName; }));
+        yScale.domain([0, 20000000]);
+
+        var layer = svg.selectAll(".layer")
+            .data(layers)
+            .enter().append("g")
+            .attr("class", "layer")
+            .style("fill", function(d, i) { return color(i); });
+
+        layer.selectAll("rect")
+            .data(function(d) { return d; })
+            .enter().append("rect")
+            .attr("x", function(d) { return xScale((d.data.StateName)); })
+            .attr("y", function(d) { return yScale(d[1]); })
+            .attr("height", function(d) { return yScale(d[0]) - yScale(d[1]); })
+            .attr("width", xScale.bandwidth());
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-1.8em")
+            .attr("dy", "-.5em")
+            .attr("transform", "rotate(-90)");
+
+        svg.append("g")
+            .attr("class", "axis axis--y")
+            .attr("transform", "translate(0,0)")
+            .call(yAxis);
+
+        var legend = svg.selectAll(".legend")
+            .data(xData.slice())
+            .enter().append("g")
+            .attr("class", "legend")
+            .attr("transform", function(d, i) { return "translate(-20," + i * 20 + ")"; });
+
+        legend.append("rect")
+            .attr("x", width - 18)
+            .attr("width", 18)
+            .attr("height", 18);
+
+        legend.select("rect").style("fill", function(d, i) {
+            return color(i);
+
+        });
+
+        legend.append("text")
+            .attr("x", width - 24)
+            .attr("y", 9)
+            .attr("dy", ".35em")
+            .style("text-anchor", "end")
+            .text(function(d) { return d; });
+    }
+
+}
+var data = [{
+        "StateName": "State - JAMMU & KASHMIR",
+        "GraduateT": "653764",
+        "GraduateM": "401279",
+        "GraduateF": "252485"
+    },
+    {
+        "StateName": "State - HIMACHAL PRADESH",
+        "GraduateT": "446609",
+        "GraduateM": "251164",
+        "GraduateF": "195445"
+    },
+    {
+        "StateName": "State - PUNJAB",
+        "GraduateT": "1760846",
+        "GraduateM": "873776",
+        "GraduateF": "887070"
+    },
+    {
+        "StateName": "State - CHANDIGARH",
+        "GraduateT": "194453",
+        "GraduateM": "104748",
+        "GraduateF": "89705"
+    },
+    {
+        "StateName": "State - UTTARAKHAND",
+        "GraduateT": "910288",
+        "GraduateM": "512068",
+        "GraduateF": "398220"
+    },
+    {
+        "StateName": "State - HARYANA",
+        "GraduateT": "1877085",
+        "GraduateM": "1102809",
+        "GraduateF": "774276"
+    },
+    {
+        "StateName": "State - NCT OF DELHI",
+        "GraduateT": "2757844",
+        "GraduateM": "1535972",
+        "GraduateF": "1221872"
+    },
+    {
+        "StateName": "State - RAJASTHAN",
+        "GraduateT": "3063282",
+        "GraduateM": "2086247",
+        "GraduateF": "977035"
+    },
+    {
+        "StateName": "State - UTTAR PRADESH",
+        "GraduateT": "9919838",
+        "GraduateM": "6378138",
+        "GraduateF": "3541700"
+    },
+    {
+        "StateName": "State - BIHAR",
+        "GraduateT": "3061676",
+        "GraduateM": "2326092",
+        "GraduateF": "735584"
+    },
+    {
+        "StateName": "State - SIKKIM",
+        "GraduateT": "32669",
+        "GraduateM": "19290",
+        "GraduateF": "13379"
+    },
+    {
+        "StateName": "State - ARUNACHAL PRADESH",
+        "GraduateT": "53606",
+        "GraduateM": "36430",
+        "GraduateF": "17176"
+    },
+    {
+        "StateName": "State - NAGALAND",
+        "GraduateT": "89718",
+        "GraduateM": "53023",
+        "GraduateF": "36695"
+    },
+    {
+        "StateName": "State - MANIPUR",
+        "GraduateT": "225620",
+        "GraduateM": "135082",
+        "GraduateF": "90538"
+    },
+    {
+        "StateName": "State - MIZORAM",
+        "GraduateT": "49621",
+        "GraduateM": "29527",
+        "GraduateF": "20094"
+    },
+    {
+        "StateName": "State - TRIPURA",
+        "GraduateT": "137812",
+        "GraduateM": "88621",
+        "GraduateF": "49191"
+    },
+    {
+        "StateName": "State - MEGHALAYA",
+        "GraduateT": "90519",
+        "GraduateM": "46311",
+        "GraduateF": "44208"
+    },
+    {
+        "StateName": "State - ASSAM",
+        "GraduateT": "1011345",
+        "GraduateM": "639241",
+        "GraduateF": "372104"
+    },
+    {
+        "StateName": "State - WEST BENGAL",
+        "GraduateT": "4827817",
+        "GraduateM": "3088673",
+        "GraduateF": "1739144"
+    },
+    {
+        "StateName": "State - JHARKHAND",
+        "GraduateT": "1328477",
+        "GraduateM": "906174",
+        "GraduateF": "422303"
+    },
+    {
+        "StateName": "State - ODISHA",
+        "GraduateT": "1783797",
+        "GraduateM": "1174184",
+        "GraduateF": "609613"
+    },
+    {
+        "StateName": "State - CHHATTISGARH",
+        "GraduateT": "1018853",
+        "GraduateM": "659081",
+        "GraduateF": "359772"
+    },
+    {
+        "StateName": "State - MADHYA PRADESH",
+        "GraduateT": "3222802",
+        "GraduateM": "2051127",
+        "GraduateF": "1171675"
+    },
+    {
+        "StateName": "State - GUJARAT",
+        "GraduateT": "3174158",
+        "GraduateM": "1891932",
+        "GraduateF": "1282226"
+    },
+    {
+        "StateName": "State - DAMAN & DIU",
+        "GraduateT": "12802",
+        "GraduateM": "8425",
+        "GraduateF": "4377"
+    },
+    {
+        "StateName": "State - DADRA & NAGAR HAVELI",
+        "GraduateT": "19174",
+        "GraduateM": "12227",
+        "GraduateF": "6947"
+    },
+    {
+        "StateName": "State - MAHARASHTRA",
+        "GraduateT": "8639081",
+        "GraduateM": "5167671",
+        "GraduateF": "3471410"
+    },
+    {
+        "StateName": "State - ANDHRA PRADESH",
+        "GraduateT": "5577387",
+        "GraduateM": "3632622",
+        "GraduateF": "1944765"
+    },
+    {
+        "StateName": "State - KARNATAKA",
+        "GraduateT": "4043647",
+        "GraduateM": "2489209",
+        "GraduateF": "1554438"
+    },
+    {
+        "StateName": "State - GOA",
+        "GraduateT": "146828",
+        "GraduateM": "74077",
+        "GraduateF": "72751"
+    },
+    {
+        "StateName": "State - LAKSHADWEEP",
+        "GraduateT": "2302",
+        "GraduateM": "1458",
+        "GraduateF": "844"
+    },
+    {
+        "StateName": "State - KERALA",
+        "GraduateT": "2531321",
+        "GraduateM": "1131336",
+        "GraduateF": "1399985"
+    },
+    {
+        "StateName": "State - TAMIL NADU",
+        "GraduateT": "5457742",
+        "GraduateM": "3119342",
+        "GraduateF": "2338400"
+    },
+    {
+        "StateName": "State - PUDUCHERRY",
+        "GraduateT": "142029",
+        "GraduateM": "79482",
+        "GraduateF": "62547"
+    },
+    {
+        "StateName": "State - ANDAMAN & NICOBAR ISLANDS",
+        "GraduateT": "24159",
+        "GraduateM": "13622",
+        "GraduateF": "10537"
+    }
+]
+var key = ["GraduateT", "GraduateM", "GraduateF"];
+initStackedBarChart.draw({
+    data: data,
+    key: key,
+    element: 'stacked-bar'
+});
